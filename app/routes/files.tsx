@@ -1,5 +1,5 @@
-import FilesPage from "~/views/files";
+// import FilesPage from "~/views/files";
 
-export default function FilesRoute() {
-  return <FilesPage />;
-}
+// export default function FilesRoute() {
+//   return <FilesPage />;
+// }
