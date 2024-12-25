@@ -1,18 +1,13 @@
-"use client";
-
 import { useState } from "react";
 import { FileUploader } from "~/components/file-uploader";
-import { FileList } from "~/components/file-list";
-import { QRCode } from "~/components/share-link";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Alert, AlertDescription } from "~/components/ui/alert";
 import { InfoIcon, CopyIcon } from "lucide-react";
-import { Button } from "~/components/ui/button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Route } from "./+types/home";
 
 export default function Home() {
-  const [showResults, setShowResults] = useState(false);
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUpload = async (files: File[], limit: number) => {
@@ -29,8 +24,7 @@ export default function Home() {
     });
     const response = await result.json();
     const linkId = response.id;
-    console.log(linkId);
-
+    navigate("/files/" + linkId);
     setIsLoading(false);
   };
 
@@ -41,6 +35,7 @@ export default function Home() {
           <Link
             to="/"
             className="text-2xl sm:text-3xl font-bold text-center text-blue-800"
+            viewTransition
           >
             ChillFile
           </Link>
