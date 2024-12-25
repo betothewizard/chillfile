@@ -47,6 +47,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Chillfile" },
+    { name: "description", content: "Sharing files at the speed of thought." },
+  ];
+}
+
 export default function App() {
   const navigation = useNavigation();
   const isNavigating = Boolean(navigation.location);

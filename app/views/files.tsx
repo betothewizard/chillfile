@@ -1,38 +1,26 @@
-"use client";
-
-import { useState } from "react";
-import { FileUploader } from "~/components/file-uploader";
-import { FileList } from "~/components/file-list";
-import { QRCode } from "~/components/share-link";
+import { Route } from "./+types/files";
+import { FileList, FileType } from "~/components/file-list";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { Alert, AlertDescription } from "~/components/ui/alert";
-import { InfoIcon, CopyIcon } from "lucide-react";
-import { Button } from "~/components/ui/button";
 import { Link } from "react-router";
-import { Route } from "./+types/home";
+import { Alert, AlertDescription } from "~/components/ui/alert";
+import { InfoIcon } from "lucide-react";
+import { ShareLink } from "~/components/share-link";
 
-export default function Home() {
-  const [showResults, setShowResults] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+export async function clientLoader({ params }: Route.ClientLoaderArgs) {
+  const res = await fetch(import.meta.env.VITE_API_URL + "/link/" + params.id);
+  const data = await res.json();
+  console.log(data);
+  return data;
+}
 
-  const handleUpload = async (files: File[], limit: number) => {
-    setIsLoading(true);
-    const formData = new FormData();
-    files.forEach((file) => {
-      formData.append("files", file, file.name);
-    });
-    formData.append("limit", limit.toString());
+export default function Files({ loaderData }: Route.ComponentProps) {
+  const { files, limit } = loaderData;
 
-    const result = await fetch(import.meta.env.VITE_API_URL + "/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const response = await result.json();
-    const linkId = response.id;
-    console.log(linkId);
-
-    setIsLoading(false);
-  };
+  const uploadedFiles: FileType[] = files.map((file) => ({
+    name: file.url,
+    downloaded: file.downloaded,
+    limit,
+  }));
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 py-4">
@@ -56,7 +44,10 @@ export default function Home() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <FileUploader onUpload={handleUpload} isLoading={isLoading} />
+            <div className="space-y-4">
+              <ShareLink />
+              <FileList files={uploadedFiles} />
+            </div>
 
             <Alert className="bg-blue-50 border-blue-200 py-3">
               <InfoIcon className="h-5 w-5 text-blue-600" />
