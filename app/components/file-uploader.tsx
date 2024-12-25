@@ -13,7 +13,7 @@ interface FileUploaderProps {
 
 export function FileUploader({ onUpload, isLoading }: FileUploaderProps) {
   const [files, setFiles] = useState<File[]>([]);
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(100);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ export function FileUploader({ onUpload, isLoading }: FileUploaderProps) {
         <Label htmlFor="file-upload" className="text-blue-700 text-lg">
           Choose files
         </Label>
-        <div className="flex items-center space-x-2 mt-1">
+        <div className="flex items-center space-x-2 mt-1 overflow-x-auto">
           <Input
             id="file-upload"
             type="file"
@@ -50,7 +50,7 @@ export function FileUploader({ onUpload, isLoading }: FileUploaderProps) {
           >
             Select Files
           </Button>
-          <span className="text-base text-blue-600">
+          <span className="text-base text-blue-600 whitespace-nowrap">
             {files.length} file(s) selected
           </span>
         </div>

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "chillfile": {
+      "appLocation": ".",
+      "outputLocation": "build/client",
+      "appBuildCommand": "npm run build",
+      "run": "npm run dev",
+      "appDevserverUrl": "http://localhost:5173",
+      "apiVersion": "20",
+      "apiLanguage": "node",
+      "appName": "chillfile",
+      "resourceGroup": "chillfile-rg"
+      
+    }
+  }
+}

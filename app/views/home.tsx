@@ -6,7 +6,9 @@ import { FileList } from "~/components/file-list";
 import { QRCode } from "~/components/qr-code";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Alert, AlertDescription } from "~/components/ui/alert";
-import { InfoIcon } from "lucide-react";
+import { InfoIcon, CopyIcon } from "lucide-react";
+import { Button } from "~/components/ui/button";
+import { Link } from "react-router";
 
 export default function Home() {
   const [uploadedFiles, setUploadedFiles] = useState<
@@ -29,15 +31,29 @@ export default function Home() {
     setIsLoading(false);
   };
 
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link copied to clipboard!");
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 py-4">
-      <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-4 text-blue-800">
-          ChillFile
-        </h1>
-        <Card className="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm shadow-lg">
+      <div className="container mx-auto px-4 flex flex-col gap-3">
+        <div className="flex flex-row mx-auto justify-center items-center space-x-3">
+          <Link
+            to="/"
+            className="text-2xl sm:text-3xl font-bold text-center text-blue-800"
+          >
+            ChillFile
+          </Link>
+          <img src="/192.png" alt="ChillFile Logo" width={50} height={50} />
+        </div>
+        <p className="text-center text-blue-700 text-lg sm:text-xl">
+          Share files at the speed of thought.
+        </p>
+        <Card className="max-w-2xl mx-auto mt-4 bg-white/80 backdrop-blur-sm shadow-lg">
           <CardHeader className="pb-2">
-            <CardTitle className="text-blue-700 text-xl">
+            <CardTitle className="text-blue-700 text-lg sm:text-xl">
               Share Your Files
             </CardTitle>
           </CardHeader>
@@ -50,17 +66,21 @@ export default function Home() {
                 <FileList files={uploadedFiles} />
               </div>
             )}
+            <Button
+              onClick={handleShare}
+              className="flex items-center space-x-2"
+            >
+              <CopyIcon className="h-5 w-5" />
+              <span>Share This Web</span>
+            </Button>
             <Alert className="bg-blue-50 border-blue-200 py-3">
               <InfoIcon className="h-5 w-5 text-blue-600" />
-              <AlertDescription className="text-blue-700 text-base">
+              <AlertDescription className="text-blue-700 text-sm sm:text-base">
                 Files are automatically deleted after 24 hours for your privacy.
               </AlertDescription>
             </Alert>
           </CardContent>
         </Card>
-        <footer className="mt-4 text-center text-sm text-blue-600">
-          © {new Date().getFullYear()} ChillFile. All rights reserved.
-        </footer>
       </div>
     </main>
   );
