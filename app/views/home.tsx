@@ -37,9 +37,9 @@ export default function Home() {
             className="text-2xl sm:text-3xl font-bold text-center text-blue-800"
             viewTransition
           >
-            ChillFile
+            Chillfile
           </Link>
-          <img src="/192.png" alt="ChillFile Logo" width={50} height={50} />
+          <img src="/192.png" alt="Chillfile Logo" width={50} height={50} />
         </div>
         <p className="text-center text-blue-700 text-lg sm:text-xl">
           Share files at the speed of thought.

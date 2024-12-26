@@ -1,14 +1,13 @@
 {
   "platform": {
     "apiRuntime": "node:20"
-    
   },
+
   "navigationFallback": {
-     "rewrite": "index.html",
-     "exclude": ["/static/media/*.{png,jpg,jpeg,gif,bmp}",   "/static/css/*"]
+    "rewrite": "/index.html",
+    "exclude": ["/static/media/*.{png,jpg,jpeg,gif,bmp}", "/static/css/*"]
   },
   "mimeTypes": {
-      ".json": "text/json"
+    ".json": "text/json"
   }
-  
 }
